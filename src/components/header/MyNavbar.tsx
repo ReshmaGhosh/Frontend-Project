@@ -12,6 +12,8 @@ import { NavLink } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 import { Product } from "../../types/type";
+import { Switch } from "@mui/material";
+import BasicSwitches from "../../pages/products/Switch";
 
 function MyNavbar() {
   const dispatch = useDispatch();
@@ -76,6 +78,7 @@ function MyNavbar() {
             <NavLink to="/contact" className="nav-link">
               Contact
             </NavLink>
+            <BasicSwitches />
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -8,7 +8,7 @@ import { Product } from "../../types/type";
 import ProductCard from "./card/ProductCard";
 
 interface LatestProductsProps {
-  handleToggleWishlist: (productId: number) => void;
+  handleToggleWishlist: (product: Product) => void;
   isItemInWishlist: (productId: number) => boolean;
 }
 
@@ -31,7 +31,7 @@ function LatestProducts(props: LatestProductsProps) {
               <Col xs={12} sm={6} md={4} lg={2} className="mb-4" key={p.id}>
                 <ProductCard
                   product={p}
-                  handleToggleWishlist={handleToggleWishlist}
+                  handleToggleWishlist={() => handleToggleWishlist(p)}
                   isItemInWishlist={isItemInWishlist}
                 />
               </Col>

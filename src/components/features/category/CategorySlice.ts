@@ -6,7 +6,7 @@ export const fetchCategories = createAsyncThunk(
   "categories/fetchCategories",
   async () => {
     try {
-      const { data } = await axios.get("https://dummyjson.com/");
+      const { data } = await axios.get("https://dummyjson.com/products");
       return data;
     } catch (error) {
       return axiosErrorHandler(error as AxiosError);

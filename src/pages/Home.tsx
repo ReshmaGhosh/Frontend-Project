@@ -10,6 +10,7 @@ import {
   addItemToWishlist,
   removeItemFromWishlist,
 } from "../components/features/favourite/WishListSlice";
+import { Product } from "../types/type";
 
 function Home() {
   const dispatch = useDispatch();
@@ -22,16 +23,17 @@ function Home() {
     return wishlistItems.some((item) => item.id === productId);
   };
 
-  const handleToggleWishlist = (productId: number) => {
-    if (isItemInWishlist(productId)) {
-      dispatch(removeItemFromWishlist(productId));
+  const handleToggleWishlist = (product: Product) => {
+    if (isItemInWishlist(product.id)) {
+      dispatch(removeItemFromWishlist(product.id));
     } else {
-      const productToAdd = Object.values(products)
-        .flat()
-        .find((product) => product.id === productId);
-      if (productToAdd) {
-        dispatch(addItemToWishlist(productToAdd));
-      }
+      dispatch(addItemToWishlist(product));
+      // const productToAdd = Object.values(products)
+      //   .flat()
+      //   .find((product) => product.id === productId);
+      // if (productToAdd) {
+      //   dispatch(addItemToWishlist(productToAdd));
+      // }
     }
   };
 

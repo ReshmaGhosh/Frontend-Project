@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { Button, Card } from "react-bootstrap";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { Product } from "../../types/type";
-
 import {
   increaseQuantity,
   decreaseQuantity,
