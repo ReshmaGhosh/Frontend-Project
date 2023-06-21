@@ -1,8 +1,9 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { axiosErrorHandler } from "../../../Utils/axiosErrorHandler";
+import { Product } from "../../../types/type";
 
-export const fetchCategories = createAsyncThunk(
+export const fetchCategories = createAsyncThunk<Product[]>(
   "categories/fetchCategories",
   async () => {
     try {
@@ -16,7 +17,7 @@ export const fetchCategories = createAsyncThunk(
 
 interface CategoryState {
   isLoading: boolean;
-  categories: string[];
+  categories: Product[];
   error: string | null;
 }
 
@@ -35,11 +36,14 @@ const categorySlice = createSlice({
       state.isLoading = true;
       state.error = null;
     });
-    builder.addCase(fetchCategories.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.categories = action.payload;
-      state.error = null;
-    });
+    builder.addCase(
+      fetchCategories.fulfilled,
+      (state, action: PayloadAction<Product[]>) => {
+        state.isLoading = false;
+        state.categories = action.payload;
+        state.error = null;
+      }
+    );
     builder.addCase(fetchCategories.rejected, (state, action) => {
       state.isLoading = false;
       state.categories = [];

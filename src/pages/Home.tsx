@@ -28,12 +28,6 @@ function Home() {
       dispatch(removeItemFromWishlist(product.id));
     } else {
       dispatch(addItemToWishlist(product));
-      // const productToAdd = Object.values(products)
-      //   .flat()
-      //   .find((product) => product.id === productId);
-      // if (productToAdd) {
-      //   dispatch(addItemToWishlist(productToAdd));
-      // }
     }
   };
 

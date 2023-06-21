@@ -16,7 +16,7 @@ export const totalCartItem = createSelector(cartsItem, (items) => {
 export const subTotalPrice = createSelector(cartsItem, (items) => {
   let total = 0;
   if (items) {
-    items.forEach((item: any) => {
+    items.forEach((item) => {
       total += item.price * item.quantity;
     });
   }

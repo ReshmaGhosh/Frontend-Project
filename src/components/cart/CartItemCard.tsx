@@ -1,15 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { RootState, AppDispatch } from "../../redux/store";
 
 import { Button, Card } from "react-bootstrap";
 import { FaMinus, FaPlus } from "react-icons/fa";
-import { Product } from "../../types/type";
+
 import {
   increaseQuantity,
   decreaseQuantity,
   removeFormCart,
+  selectIsLoading,
+  selectProduct,
+  fetchProduct,
 } from "../features/cart/CartSlice";
 
 interface CartItem {
@@ -22,9 +26,9 @@ interface CartItemCardProps {
 }
 
 function CartItemCard({ item }: CartItemCardProps) {
-  const [product, setProduct] = useState<Product | null>(null);
-
-  const dispatch = useDispatch();
+  const product = useSelector((state: RootState) => selectProduct(state));
+  const isLoading = useSelector((state: RootState) => selectIsLoading(state));
+  const dispatch = useDispatch<AppDispatch>();
 
   const increaseItemQuantity = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -42,10 +46,12 @@ function CartItemCard({ item }: CartItemCardProps) {
   };
 
   useEffect(() => {
-    axios.get(`https://dummyjson.com/products/${item.id}`).then((res) => {
-      setProduct(res.data as Product | null);
-    });
-  }, [item]);
+    dispatch(fetchProduct(item.id));
+  }, [dispatch, item.id]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   if (product) {
     return (

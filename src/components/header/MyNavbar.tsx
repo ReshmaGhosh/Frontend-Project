@@ -12,14 +12,12 @@ import { NavLink } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 import { Product } from "../../types/type";
-import { Switch } from "@mui/material";
+
 import BasicSwitches from "../../pages/products/Switch";
 
 function MyNavbar() {
-  const dispatch = useDispatch();
   const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
-  const products =
-    useSelector((state: RootState) => state.products.products) || [];
+  const products = useSelector((state: RootState) => state.products.products);
 
   const categories = uniq(products.map((product: Product) => product.category));
 

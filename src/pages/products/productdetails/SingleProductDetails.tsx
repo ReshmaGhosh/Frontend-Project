@@ -20,7 +20,7 @@ interface RouteParams {
 
 function SingleProductDetails() {
   const { productId } = useParams<RouteParams>();
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<Product | undefined>(undefined);
   const [quantity, setQuantity] = useState(0);
   const { products } = useSelector((state: RootState) => state.products);
 
@@ -54,8 +54,10 @@ function SingleProductDetails() {
   };
 
   useEffect(() => {
-    let result = products.find((p) => p.id === parseInt(productId!));
-    setProduct(result || null);
+    if (productId) {
+      let result = products.find((p) => p.id === parseInt(productId));
+      setProduct(result);
+    }
   }, [productId, products]);
 
   return (

@@ -2,7 +2,7 @@ import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { Col } from "react-bootstrap";
+import { Col, Row, Container } from "react-bootstrap";
 
 import { removeItemFromWishlist } from "../favourite/WishListSlice";
 import ProductCard from "../../product/card/ProductCard";
@@ -30,16 +30,22 @@ function WishList() {
       <br />
       <br />
       <br />
-      {wishlistItems.map((product) => (
-        <Col xs={12} sm={6} md={4} lg={2} className="mb-4" key={product.id}>
-          <ProductCard
-            key={product.id}
-            product={product}
-            handleToggleWishlist={() => handleToggleWishlist(product)}
-            isItemInWishlist={isItemInWishlist}
-          />
-        </Col>
-      ))}
+      <Container>
+        <h4 className="mb-4">Your Wishlist</h4>
+        <Row>
+          {wishlistItems.map((product) => (
+            <Col xs={12} sm={6} md={4} lg={2} className="mb-4" key={product.id}>
+              <ProductCard
+                key={product.id}
+                product={product}
+                handleToggleWishlist={() => handleToggleWishlist(product)}
+                isItemInWishlist={isItemInWishlist}
+              />
+            </Col>
+          ))}
+        </Row>
+      </Container>
+
       <Footer />
     </div>
   );

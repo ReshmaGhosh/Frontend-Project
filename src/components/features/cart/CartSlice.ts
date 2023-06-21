@@ -1,22 +1,41 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../../redux/store";
+import axios from "axios";
 
 interface CartItem {
   id: number;
   quantity: number;
+  price: number;
+}
+interface Product {
+  id: number;
+  title: string;
+  price: number;
 }
 
 interface CartState {
   carts: CartItem[];
+  product: Product | null;
   error: string | null;
+  isLoading: boolean;
 }
 
 const initialState: CartState = {
   carts: localStorage.getItem("carts")
     ? JSON.parse(localStorage.getItem("carts")!)
     : [],
+  product: null,
   error: null,
+  isLoading: false,
 };
+
+export const fetchProduct = createAsyncThunk(
+  "cart/fetchProduct",
+  async (id: number) => {
+    const response = await axios.get(`https://dummyjson.com/products/${id}`);
+    return response.data;
+  }
+);
 
 const CartSlice = createSlice({
   name: "cart",
@@ -77,9 +96,28 @@ const CartSlice = createSlice({
       localStorage.setItem("carts", JSON.stringify(state.carts));
     },
   },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchProduct.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.product = action.payload;
+      })
+      .addCase(fetchProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.product = null;
+        state.error = action.error.message || null;
+      });
+  },
 });
 
 export const cartState = (state: RootState) => state.carts.carts;
+export const selectProduct = (state: RootState) => state.carts.product;
+export const selectIsLoading = (state: RootState) => state.carts.isLoading;
 
 export const {
   addToCarts,
