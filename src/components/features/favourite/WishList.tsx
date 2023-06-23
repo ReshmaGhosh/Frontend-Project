@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { Col, Row, Container } from "react-bootstrap";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 import { removeItemFromWishlist } from "../favourite/WishListSlice";
 import ProductCard from "../../product/card/ProductCard";
@@ -13,6 +15,7 @@ import Footer from "../../footer/Footer";
 function WishList() {
   const dispatch = useDispatch();
   const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
+  const [open, setOpen] = useState(false);
 
   const isItemInWishlist = (productId: number) => {
     return wishlistItems.some((item) => item.id === productId);
@@ -21,7 +24,18 @@ function WishList() {
   const handleToggleWishlist = (product: Product) => {
     if (isItemInWishlist(product.id)) {
       dispatch(removeItemFromWishlist(product.id));
+      setOpen(true);
     }
+  };
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   return (
@@ -44,6 +58,16 @@ function WishList() {
             </Col>
           ))}
         </Row>
+
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Product removed from wishlist!
+          </Alert>
+        </Snackbar>
       </Container>
 
       <Footer />
