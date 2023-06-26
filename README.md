@@ -1,4 +1,6 @@
-Deply Link : int-fs-8-front-end-project-7ztahuvke-reshma.vercel.app
+Deply Link : int-fs-8-front-end-project-psi.vercel.app
+
+
 
 # FRONT END PROJECT
 
