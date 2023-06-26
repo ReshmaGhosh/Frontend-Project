@@ -1,3 +1,5 @@
+Deply Link : int-fs-8-front-end-project-7ztahuvke-reshma.vercel.app
+
 # FRONT END PROJECT
 
 The front end project uses React with TypeScript and Redux. Completing all requirement, you will get 20 points. Good luck and HAVE FUN !!!
