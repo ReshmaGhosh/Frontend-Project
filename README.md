@@ -1,4 +1,4 @@
-Deply Link : int-fs-8-front-end-project-psi.vercel.app
+Deply Link : https://vercel.com/reshma/int-fs-8-front-end-project/8jbZsgmJVJKmdHsgYpSmd1M5mVHi
 
 
 
@@ -65,4 +65,4 @@ ONLY DO THIS PART WHEN YOU HAVE COMPLETED THE REQUIREMENTS PART
 6. Cart
    ![](./screenshots/cart.png)
 
-   Deploy Link : int-fs-8-front-end-project-7ztahuvke-reshma.vercel.app
+   Deploy Link : https://vercel.com/reshma/int-fs-8-front-end-project/8jbZsgmJVJKmdHsgYpSmd1M5mVHi
